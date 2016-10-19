@@ -1,8 +1,7 @@
-var startPX = 0,
-    startPY = 385,
-    playerHP = 3,
-    startEX = -101,
-    startEY = [252.5, 353.5, 454.5];
+var startPX = 202,
+    startPY =385,
+    ENEMY_StrtX = -80,
+    ENEMY_StrtY = [50,142, 225];
 
 //startEY = [1st cobble, 2nd cobble, 3rd cobble]
 // All set for the middle of the block
@@ -13,6 +12,9 @@ var startPX = 0,
 var Enemy = function() {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
+    this.x = ENEMY_StrtX;
+    this.y = ENEMY_StrtY[Math.floor(Math.random()*4)];
+
 
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
@@ -25,6 +27,10 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
+    movement = 100 * dt;
+    this.x += movement;
+
+
 };
 
 // Draw the enemy on the screen, required method for game
@@ -55,9 +61,6 @@ Player.prototype.handleInput = function(key) {
 
 if(key == 'up'){
     this.y -= 86;
-    if(Player.x > 505){
-        this.x = 0;
-    }
 
 } else if(key == 'down'){
     this.y -= -86;
@@ -68,9 +71,8 @@ if(key == 'up'){
 } else if(key == 'right'){
     this.x += 101;
 
-} else{
-    this.x += 0;
-    this.y -= 0;
+} else if(player.x < 0 || ){
+
 }
 };
 
@@ -84,7 +86,7 @@ Player.prototype.update = function(){
 // Place the player object in a variable called player
 
 
-var allEnemies = [new Enemy(), new Enemy(), new Enemy()];
+var allEnemies = [new Enemy, new Enemy, new Enemy];
 
 var player = new Player();
 // This listens for key presses and sends the keys to your
