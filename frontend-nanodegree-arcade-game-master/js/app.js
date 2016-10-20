@@ -1,7 +1,8 @@
-var startPX = 202,
-    startPY =385,
+var PLAYER_STRTX = 404,
+    PLAYER_STRTY = 467.5,
     ENEMY_StrtX = -80,
-    ENEMY_StrtY = [50,142, 225];
+    ENEMY_Speed = [150, 200, 400, 1000, 300, 1500],
+    ENEMY_StrtY = [142, 225, 308, 391];
 
 //startEY = [1st cobble, 2nd cobble, 3rd cobble]
 // All set for the middle of the block
@@ -14,6 +15,7 @@ var Enemy = function() {
     // we've provided one for you to get started
     this.x = ENEMY_StrtX;
     this.y = ENEMY_StrtY[Math.floor(Math.random()*4)];
+    this.speed = ENEMY_Speed[Math.floor(Math.random()*6)];
 
 
     // The image/sprite for our enemies, this uses
@@ -27,8 +29,13 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-    movement = 100 * dt;
-    this.x += movement;
+    if(this.x > 950)
+    {
+        this.x = ENEMY_StrtX;
+        this.y = ENEMY_StrtY[Math.floor(Math.random()*4)];
+        this.speed = ENEMY_Speed[Math.floor(Math.random()* 6)];
+    }
+    this.x = this.x + (this.speed*dt);
 
 
 };
@@ -45,8 +52,8 @@ Enemy.prototype.render = function() {
 var Player = function() {
 
 //This is where the player originally spawns when the game loads
-    this.x = startPX;
-    this.y = startPY;
+    this.x = PLAYER_STRTX;
+    this.y = PLAYER_STRTY;
     this.sprite = 'images/char-boy.png';
 };
 
@@ -60,18 +67,24 @@ Player.prototype.render = function() {
 Player.prototype.handleInput = function(key) {
 
 if(key == 'up'){
-    this.y -= 86;
+    if(this.y != -48.5){
+        this.y -= 86;
+    }
 
 } else if(key == 'down'){
-    this.y -= -86;
+    if(this.y != 467.5){
+        this.y -= -86;
+    }
 
 } else if(key == 'left'){
-    this.x += -101;
+    if( this.x != 0){
+        this.x += -101;
+    }
 
 } else if(key == 'right'){
-    this.x += 101;
-
-} else if(player.x < 0 || ){
+    if( this.x != 808){
+        this.x += 101;
+    }
 
 }
 };
@@ -86,7 +99,7 @@ Player.prototype.update = function(){
 // Place the player object in a variable called player
 
 
-var allEnemies = [new Enemy, new Enemy, new Enemy];
+var allEnemies = [new Enemy, new Enemy, new Enemy, new Enemy, new Enemy, new Enemy, new Enemy, new Enemy, new Enemy];
 
 var player = new Player();
 // This listens for key presses and sends the keys to your
