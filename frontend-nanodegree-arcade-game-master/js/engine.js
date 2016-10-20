@@ -67,29 +67,23 @@ var Engine = (function(global) {
         reset();
         lastTime = Date.now();
         main();
-    }
+    };
 
-    /* This function is called by main (our game loop) and itself calls all
-     * of the functions which may need to update entity's data. Based on how
-     * you implement your collision detection (when two entities occupy the
-     * same space, for instance when your character should die), you may find
-     * the need to add an additional function call here. For now, we've left
-     * it commented out - you may or may not want to implement this
-     * functionality this way (you could just implement collision detection
-     * on the entities themselves within your app.js file).
-     */
+
+
     function update(dt) {
         updateEntities(dt);
-        // checkCollisions();
-    }
+        bugCollision();
+    };
 
-    /* This is called by the update function and loops through all of the
+    /* This is called by the update function  and loops through all of the
      * objects within your allEnemies array as defined in app.js and calls
      * their update() methods. It will then call the update function for your
      * player object. These update methods should focus purely on updating
-     * the data/properties related to the object. Do your drawing in your
+     * the data/properties related to  the object. Do your drawing in your
      * render methods.
      */
+
     function updateEntities(dt) {
         allEnemies.forEach(function(enemy) {
             enemy.update(dt);
@@ -97,12 +91,26 @@ var Engine = (function(global) {
         player.update();
     }
 
-    /* This function initially draws the "game level", it will then call
-     * the renderEntities function. Remember, this function is called every
-     * game tick (or loop of the game engine) because that's how games work -
-     * they are flipbooks creating the illusion of animation but in reality
-     * they are just drawing the entire screen over and over.
-     */
+    //This function checks the collision for bug with the player
+    function bugCollision() {
+        for (var i = 0; i < allEnemies.length; i++) {
+            if(collide(player,allEnemies[i],40)) {
+                player.resetPosition();
+
+            }
+        }
+    }
+
+
+    //This function checks for collision during the game between any two entities
+    function collide(player,entity,theta) {
+        if ((entity.x >= (player.x - theta - 20)) && (entity.x <= (player.x + theta + 30))) {
+            if ((entity.y >= (player.y - theta + 20)) && (entity.y <= (player.y + theta - 15))) {
+                return true;
+            }
+        }
+    }
+
     function render() {
         /* This array holds the relative URL to the image used
          * for that particular row of the game level.

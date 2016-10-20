@@ -1,7 +1,7 @@
 var PLAYER_STRTX = 404,
     PLAYER_STRTY = 467.5,
     ENEMY_StrtX = -80,
-    ENEMY_Speed = [150, 200, 400, 1000, 300, 1500],
+    ENEMY_Speed = [250, 300, 400, 1000, 500, 1500],
     ENEMY_StrtY = [142, 225, 308, 391];
 
 //startEY = [1st cobble, 2nd cobble, 3rd cobble]
@@ -93,6 +93,12 @@ Player.prototype.update = function(){
 
 
 
+};
+
+Player.prototype.resetPosition = function() {
+    this.x = PLAYER_STRTX;
+    this.y = PLAYER_STRTY;
+    this.sprite = 'images/char-boy.png';
 };
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
