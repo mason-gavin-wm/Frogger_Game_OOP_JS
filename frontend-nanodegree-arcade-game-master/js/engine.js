@@ -67,14 +67,14 @@ var Engine = (function(global) {
         reset();
         lastTime = Date.now();
         main();
-    };
+    }
 
 
 
     function update(dt) {
         updateEntities(dt);
         bugCollision();
-    };
+    }
 
     /* This is called by the update function  and loops through all of the
      * objects within your allEnemies array as defined in app.js and calls
@@ -96,6 +96,7 @@ var Engine = (function(global) {
         for (var i = 0; i < allEnemies.length; i++) {
             if(collide(player,allEnemies[i],40)) {
                 player.resetPosition();
+                player.lossLife();
 
             }
         }
@@ -180,7 +181,11 @@ var Engine = (function(global) {
         'images/water-block.png',
         'images/grass-block.png',
         'images/enemy-bug.png',
-        'images/char-boy.png'
+        'images/char-boy.png',
+        'images/enemy-bee.png',
+        'images/happy-bee.png'
+
+
     ]);
     Resources.onReady(init);
 

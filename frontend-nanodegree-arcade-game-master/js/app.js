@@ -1,8 +1,10 @@
 var PLAYER_STRTX = 404,
     PLAYER_STRTY = 467.5,
+    PLAYER_SCORE= 0,
+    PLAYER_LIVES = 3,
     ENEMY_StrtX = -80,
     ENEMY_Speed = [250, 300, 400, 1000, 500, 1500],
-    ENEMY_StrtY = [142, 225, 308, 391];
+    ENEMY_StrtY = [ 225, 308, 391];
 
 //startEY = [1st cobble, 2nd cobble, 3rd cobble]
 // All set for the middle of the block
@@ -20,7 +22,7 @@ var Enemy = function() {
 
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
-    this.sprite = 'images/enemy-bug.png';
+    this.sprite = 'images/happy-bee.png';
 };
 
 // Update the enemy's position, required method for game
@@ -57,10 +59,13 @@ var Player = function() {
     this.sprite = 'images/char-boy.png';
 };
 
-Player.prototype.render = function() {
-
+Player.prototype.render = function(){
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-
+    var positionX = 0;
+    for (var i = 1; i <= this.life; i++) {
+        ctx.drawImage(Resources.get(this.playerLife), 5 + positionX, 50);
+        positionX += 30;
+    }
 };
 
 //Movement of the player
@@ -69,6 +74,21 @@ Player.prototype.handleInput = function(key) {
 if(key == 'up'){
     if(this.y != -48.5){
         this.y -= 86;
+    }
+    else if(this.y = -48.5){
+        player.resetPosition();
+
+            function total_score(){
+                PLAYER_SCORE += 10;
+                if(PLAYER_SCORE >= 100){
+                    Prefix = "wow ethan great job proud of you ";
+                }
+                else{
+                    Prefix = "";
+                }
+            }
+        total_score();
+        document.getElementById('score').innerHTML = Prefix + PLAYER_SCORE;
     }
 
 } else if(key == 'down'){
@@ -94,22 +114,29 @@ Player.prototype.update = function(){
 
 
 };
+Player.prototype.lossLife = function() {
+
+    this.life--;
+    document.getElementById('lives').innerHTML = PLAYER_LIVES;
+
+};
 
 Player.prototype.resetPosition = function() {
     this.x = PLAYER_STRTX;
     this.y = PLAYER_STRTY;
     this.sprite = 'images/char-boy.png';
 };
+
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
 
-var allEnemies = [new Enemy, new Enemy, new Enemy, new Enemy, new Enemy, new Enemy, new Enemy, new Enemy, new Enemy];
+var allEnemies = [new Enemy, new Enemy, new Enemy, new Enemy, new Enemy, new Enemy, new Enemy, new Enemy];
 
-var player = new Player();
-// This listens for key presses and sends the keys to your
-// Player.handleInput() method. You don't need to modify this.
+var player = new Player(PLAYER_STRTX, PLAYER_STRTY, PLAYER_LIVES);
+
+
 document.addEventListener('keyup', function(e) {
     var allowedKeys = {
         37: 'left',
