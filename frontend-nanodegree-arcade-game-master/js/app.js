@@ -1,10 +1,10 @@
 var PLAYER_STRTX = 404,
-    PLAYER_STRTY = 467.5,
+    PLAYER_STRTY = 380.5,
     PLAYER_SCORE= 0,
     PLAYER_LIVES = 3,
     ENEMY_StrtX = -80,
     ENEMY_Speed = [250, 300, 400, 1000, 500, 1500],
-    ENEMY_StrtY = [ 225, 308, 391];
+    ENEMY_StrtY = [ 225, 308];
 
 //startEY = [1st cobble, 2nd cobble, 3rd cobble]
 // All set for the middle of the block
@@ -72,10 +72,10 @@ Player.prototype.render = function(){
 Player.prototype.handleInput = function(key) {
 
 if(key == 'up'){
-    if(this.y != -48.5){
+    if(this.y != -49.5){
         this.y -= 86;
     }
-    else if(this.y = -48.5){
+    else if(this.y == -49.5){
         player.resetPosition();
 
             function total_score(){
@@ -92,7 +92,7 @@ if(key == 'up'){
     }
 
 } else if(key == 'down'){
-    if(this.y != 467.5){
+    if(this.y != PLAYER_STRTY){
         this.y -= -86;
     }
 
